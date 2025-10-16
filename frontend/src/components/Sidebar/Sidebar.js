@@ -207,25 +207,7 @@ const Sidebar = ({ children }) => {
 
         </div>
 
-        {/* Sistema de Auditoría - Fixed at bottom */}
-        {!isCollapsed && (
-          <div className="px-4 py-3 bg-purple-50 border-t border-purple-200">
-            <div className="text-xs text-purple-700">
-              <p className="font-semibold mb-1">🔒 Sistema de Auditoría</p>
-              <p className="text-xs">Inventario principal + Auditoría automática</p>
-            </div>
-          </div>
-        )}
 
-        {/* Autor del Proyecto - Fixed at bottom */}
-        {!isCollapsed && (
-          <div className="px-4 py-3 bg-blue-50 border-t border-blue-200">
-            <div className="text-xs text-blue-700">
-              <p className="font-semibold mb-1">👨‍💻 Desarrollado por</p>
-              <p className="text-xs font-medium">Ing. Rodrigo Guerrero Jordy</p>
-            </div>
-          </div>
-        )}
 
         {/* Logout - Fixed at bottom */}
         <div className="p-4 border-t bg-white">

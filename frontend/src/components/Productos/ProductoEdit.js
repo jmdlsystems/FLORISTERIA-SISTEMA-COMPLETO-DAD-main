@@ -43,7 +43,8 @@ const ProductoEdit = () => {
     const catRes = await categoriasService.getAll();
     if (catRes.success) setCategorias(catRes.data);
     const provRes = await proveedoresService.getAll();
-    if (provRes.success) setProveedores(provRes.data);
+    const provData = Array.isArray(provRes) ? provRes : (provRes && Array.isArray(provRes.data) ? provRes.data : []);
+    setProveedores(provData);
   };
 
   const handleChange = e => {
@@ -200,4 +201,4 @@ const ProductoEdit = () => {
   );
 };
 
-export default ProductoEdit; 
+export default ProductoEdit;

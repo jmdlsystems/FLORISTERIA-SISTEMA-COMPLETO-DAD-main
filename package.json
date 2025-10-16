@@ -1,7 +1,7 @@
 {
-  "name": "floreria-desarrollo",
+  "name": "camsas-desarrollo",
   "version": "1.0.0",
-  "description": "Sistema de gestión para florería",
+  "description": "Sistema de gestión de insumos agricolas",
   "private": true,
   "scripts": {
     "frontend": "cd frontend && npm start",

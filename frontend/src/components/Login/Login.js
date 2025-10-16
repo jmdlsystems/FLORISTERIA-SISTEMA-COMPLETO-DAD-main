@@ -64,21 +64,22 @@ const Login = () => {
       <div
         className="hidden md:block md:w-1/2 h-64 md:h-auto bg-cover bg-center"
         style={{
-          backgroundImage: "url('/fondo.jpg')",
+          backgroundImage: "url('/camsa_fondo.jpg')",
         }}
       ></div>
       {/* Mitad derecha: Login */}
       <div className="flex flex-1 items-center justify-center bg-white">
         <div className="w-full max-w-md p-8">
           <div className="flex flex-col items-center mb-8">
-            <div className="h-20 w-20 rounded-full bg-gradient-to-tr from-blue-400 to-blue-600 flex items-center justify-center shadow-lg mb-4">
-              {/* Ícono floral azul */}
-              <svg className="h-12 w-12 text-blue-200" fill="none" viewBox="0 0 48 48" stroke="currentColor">
-                <circle cx="24" cy="24" r="6" fill="#3b82f6" />
-                <path d="M24 6v6M24 36v6M6 24h6M36 24h6M12.22 12.22l4.24 4.24M31.54 31.54l4.24 4.24M12.22 35.78l4.24-4.24M31.54 16.46l4.24-4.24" stroke="#60a5fa" strokeWidth="2" strokeLinecap="round" />
-              </svg>
+            <div className="h-20 w-20 rounded-full overflow-hidden bg-white flex items-center justify-center shadow-lg mb-4">
+              {/* Logo de CAMSA en círculo */}
+              <img 
+                src="/camsa_logo.jpg" 
+                alt="CAMSA Logo" 
+                className="h-full w-full object-cover"
+              />
             </div>
-            <h2 className="text-3xl font-extrabold text-blue-800 mb-1 tracking-tight">Bienvenido a Florería</h2>
+            <h2 className="text-3xl font-extrabold text-blue-800 mb-1 tracking-tight">Login</h2>
             <p className="text-blue-500 text-sm">Inicia sesión para continuar</p>
           </div>
           {restoredMessage && (
@@ -173,4 +174,4 @@ const Login = () => {
   );
 };
 
-export default Login; 
+export default Login;

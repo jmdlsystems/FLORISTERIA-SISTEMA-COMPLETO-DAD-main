@@ -19,10 +19,9 @@ const ProveedoresList = () => {
       setLoading(true);
       setError(null);
       const res = await proveedoresService.getAll();
-      if (res.success) {
-        setProveedores(res.data || []);
-      } else {
-        setProveedores([]);
+      const data = Array.isArray(res) ? res : (res && Array.isArray(res.data) ? res.data : []);
+      setProveedores(data);
+      if (!Array.isArray(res) && res?.error) {
         setError(res.error);
       }
     } catch (err) {
@@ -200,4 +199,4 @@ const ProveedoresList = () => {
   );
 };
 
-export default ProveedoresList; 
+export default ProveedoresList;
