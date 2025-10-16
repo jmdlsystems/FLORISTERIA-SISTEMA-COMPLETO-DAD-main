@@ -1,0 +1,25 @@
+{
+  "development": {
+    "username": "root",
+    "password": "",
+    "database": "practicas_pp_yb",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "root",
+    "password": "",
+    "database": "practicas_pp_yb_test",
+    "host": "127.0.0.1",
+    "port": 5432,
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": "",
+    "database": "practicas_pp_yb_prod",
+    "host": "127.0.0.1",
+    "port": 5432,
+    "dialect": "mysql"
+  }
+}

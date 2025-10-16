@@ -1,0 +1,1283 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API Sistema de Florería",
+    "description": "API REST completa para gestión de florería con roles de usuario, inventario, pedidos y auditoría automática",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Soporte Técnico",
+      "email": "soporte@floreria.com"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3001/api",
+      "description": "Servidor de desarrollo"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "Usuario": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer" },
+          "nombre": { "type": "string" },
+          "correo": { "type": "string", "format": "email" },
+          "rol_id": { "type": "integer" },
+          "activo": { "type": "boolean" },
+          "createdAt": { "type": "string", "format": "date-time" },
+          "updatedAt": { "type": "string", "format": "date-time" },
+          "rol": {
+            "$ref": "#/components/schemas/Rol"
+          }
+        }
+      },
+      "Rol": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer" },
+          "nombre": { "type": "string", "enum": ["ADMINISTRADOR", "FLORISTA", "REPARTIDOR", "USUARIO"] },
+          "descripcion": { "type": "string" }
+        }
+      },
+      "Producto": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer" },
+          "nombre": { "type": "string" },
+          "descripcion": { "type": "string" },
+          "precio": { "type": "number", "format": "float" },
+          "categoria_id": { "type": "integer" },
+          "proveedor_id": { "type": "integer" },
+          "imagen": { "type": "string" },
+          "categoria": {
+            "$ref": "#/components/schemas/Categoria"
+          },
+          "proveedor": {
+            "$ref": "#/components/schemas/Proveedor"
+          }
+        }
+      },
+      "Categoria": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer" },
+          "nombre": { "type": "string" },
+          "descripcion": { "type": "string" }
+        }
+      },
+      "Proveedor": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer" },
+          "nombre": { "type": "string" },
+          "contacto": { "type": "string" },
+          "direccion": { "type": "string" },
+          "telefono": { "type": "string" }
+        }
+      },
+      "Inventario": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer" },
+          "producto_id": { "type": "integer" },
+          "ubicacion_id": { "type": "integer" },
+          "cantidad_actual": { "type": "integer" },
+          "cantidad_minima": { "type": "integer" },
+          "producto": {
+            "$ref": "#/components/schemas/Producto"
+          },
+          "ubicacion": {
+            "$ref": "#/components/schemas/Ubicacion"
+          }
+        }
+      },
+      "Ubicacion": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer" },
+          "nombre": { "type": "string" },
+          "descripcion": { "type": "string" }
+        }
+      },
+      "Pedido": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer" },
+          "cliente_nombre": { "type": "string" },
+          "cliente_telefono": { "type": "string" },
+          "cliente_direccion": { "type": "string" },
+          "cliente_email": { "type": "string", "format": "email" },
+          "fecha_pedido": { "type": "string", "format": "date-time" },
+          "fecha_entrega": { "type": "string", "format": "date-time" },
+          "estado": { 
+            "type": "string", 
+            "enum": ["pendiente", "en_preparacion", "listo", "en_camino", "entregado", "cancelado"] 
+          },
+          "metodo_pago": { 
+            "type": "string", 
+            "enum": ["efectivo", "tarjeta", "transferencia"] 
+          },
+          "notas": { "type": "string" },
+          "total": { "type": "number", "format": "float" },
+          "usuario_id": { "type": "integer" },
+          "detalles_pedidos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DetallePedido"
+            }
+          }
+        }
+      },
+      "DetallePedido": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer" },
+          "pedido_id": { "type": "integer" },
+          "producto_id": { "type": "integer" },
+          "cantidad": { "type": "integer" },
+          "precio_unitario": { "type": "number", "format": "float" },
+          "subtotal": { "type": "number", "format": "float" },
+          "producto": {
+            "$ref": "#/components/schemas/Producto"
+          }
+        }
+      },
+      "Movimiento": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer" },
+          "tipo": { "type": "string", "enum": ["Incremento", "Decremento"] },
+          "producto_id": { "type": "integer" },
+          "cantidad": { "type": "integer" },
+          "fecha": { "type": "string", "format": "date-time" },
+          "usuario_id": { "type": "integer" },
+          "descripcion": { "type": "string" },
+          "producto": {
+            "$ref": "#/components/schemas/Producto"
+          },
+          "usuario": {
+            "$ref": "#/components/schemas/Usuario"
+          }
+        }
+      },
+      "AjusteInventario": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer" },
+          "producto_id": { "type": "integer" },
+          "cantidad_ajustada": { "type": "integer" },
+          "motivo": { "type": "string" },
+          "fecha": { "type": "string", "format": "date-time" },
+          "usuario_id": { "type": "integer" },
+          "producto": {
+            "$ref": "#/components/schemas/Producto"
+          },
+          "usuario": {
+            "$ref": "#/components/schemas/Usuario"
+          }
+        }
+      },
+      "OrdenCompra": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer" },
+          "numero": { "type": "string" },
+          "proveedor_id": { "type": "integer" },
+          "fecha": { "type": "string", "format": "date-time" },
+          "estado": { "type": "string" },
+          "observaciones": { "type": "string" },
+          "usuario_id": { "type": "integer" },
+          "proveedor": {
+            "$ref": "#/components/schemas/Proveedor"
+          },
+          "detalles_ordenes_compras": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DetalleOrdenCompra"
+            }
+          }
+        }
+      },
+      "DetalleOrdenCompra": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer" },
+          "orden_compra_id": { "type": "integer" },
+          "producto_id": { "type": "integer" },
+          "cantidad": { "type": "integer" },
+          "precio_unitario": { "type": "number", "format": "float" },
+          "producto": {
+            "$ref": "#/components/schemas/Producto"
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean" },
+          "error": { "type": "string" }
+        }
+      },
+      "Success": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean" },
+          "data": { "type": "object" },
+          "message": { "type": "string" }
+        }
+      }
+    }
+  },
+  "paths": {
+    "/auth/login": {
+      "post": {
+        "tags": ["Autenticación"],
+        "summary": "Iniciar sesión",
+        "description": "Autentica un usuario y devuelve un token JWT",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["correo", "contraseña"],
+                "properties": {
+                  "correo": {
+                    "type": "string",
+                    "format": "email",
+                    "example": "admin@demo.com"
+                  },
+                  "contraseña": {
+                    "type": "string",
+                    "example": "admin123"
+                  }
+                }
+              },
+              "examples": {
+                "admin": {
+                  "summary": "Login Administrador",
+                  "value": {
+                    "correo": "admin@demo.com",
+                    "contraseña": "admin123"
+                  }
+                },
+                "florista": {
+                  "summary": "Login Florista",
+                  "value": {
+                    "correo": "florista@demo.com",
+                    "contraseña": "usuario123"
+                  }
+                },
+                "repartidor": {
+                  "summary": "Login Repartidor",
+                  "value": {
+                    "correo": "repartidor@demo.com",
+                    "contraseña": "usuario123"
+                  }
+                },
+                "usuario": {
+                  "summary": "Login Usuario",
+                  "value": {
+                    "correo": "usuario@demo.com",
+                    "contraseña": "usuario123"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Login exitoso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean" },
+                    "token": { "type": "string" },
+                    "user": { "$ref": "#/components/schemas/Usuario" }
+                  }
+                },
+                "example": {
+                  "success": true,
+                  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+                  "user": {
+                    "id": 1,
+                    "nombre": "Administrador",
+                    "correo": "admin@demo.com",
+                    "rol_id": 1,
+                    "activo": true,
+                    "rol": {
+                      "id": 1,
+                      "nombre": "ADMINISTRADOR",
+                      "descripcion": "Acceso completo al sistema"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Credenciales inválidas",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" },
+                "example": {
+                  "success": false,
+                  "error": "Credenciales inválidas"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/register": {
+      "post": {
+        "tags": ["Autenticación"],
+        "summary": "Registrar nuevo usuario",
+        "description": "Crea una nueva cuenta de usuario",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["nombre", "correo", "contraseña"],
+                "properties": {
+                  "nombre": { "type": "string" },
+                  "correo": { "type": "string", "format": "email" },
+                  "contraseña": { "type": "string", "minLength": 6 },
+                  "rol_id": { "type": "integer", "default": 4 }
+                }
+              },
+              "example": {
+                "nombre": "Nuevo Usuario",
+                "correo": "nuevo@usuario.com",
+                "contraseña": "password123",
+                "rol_id": 4
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Usuario creado exitosamente",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Usuario" }
+              }
+            }
+          },
+          "400": {
+            "description": "Datos inválidos",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/usuarios": {
+      "get": {
+        "tags": ["Usuarios"],
+        "summary": "Obtener todos los usuarios",
+        "description": "Lista todos los usuarios del sistema (solo ADMINISTRADOR)",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "Lista de usuarios",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Usuario" }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No autorizado",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Usuarios"],
+        "summary": "Crear nuevo usuario",
+        "description": "Crea un nuevo usuario (solo ADMINISTRADOR)",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["nombre", "correo", "contraseña"],
+                "properties": {
+                  "nombre": { "type": "string" },
+                  "correo": { "type": "string", "format": "email" },
+                  "contraseña": { "type": "string" },
+                  "rol_id": { "type": "integer" },
+                  "activo": { "type": "boolean", "default": true }
+                }
+              },
+              "example": {
+                "nombre": "Nuevo Empleado",
+                "correo": "empleado@floreria.com",
+                "contraseña": "password123",
+                "rol_id": 2,
+                "activo": true
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Usuario creado",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Usuario" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/usuarios/{id}": {
+      "get": {
+        "tags": ["Usuarios"],
+        "summary": "Obtener usuario por ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "Usuario encontrado",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Usuario" }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["Usuarios"],
+        "summary": "Actualizar usuario",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nombre": { "type": "string" },
+                  "correo": { "type": "string", "format": "email" },
+                  "contraseña": { "type": "string" },
+                  "rol_id": { "type": "integer" },
+                  "activo": { "type": "boolean" }
+                }
+              },
+              "example": {
+                "nombre": "Empleado Actualizado",
+                "correo": "empleado.actualizado@floreria.com",
+                "rol_id": 2,
+                "activo": true
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Usuario actualizado",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Usuario" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/productos": {
+      "get": {
+        "tags": ["Productos"],
+        "summary": "Obtener todos los productos",
+        "description": "Lista todos los productos del catálogo",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "Lista de productos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Producto" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Productos"],
+        "summary": "Crear nuevo producto",
+        "description": "Crea un nuevo producto (solo ADMINISTRADOR)",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["nombre"],
+                "properties": {
+                  "nombre": { "type": "string" },
+                  "descripcion": { "type": "string" },
+                  "precio": { "type": "number", "format": "float" },
+                  "categoria_id": { "type": "integer" },
+                  "proveedor_id": { "type": "integer" },
+                  "imagen": { "type": "string" }
+                }
+              },
+              "example": {
+                "nombre": "Rosa Roja Premium",
+                "descripcion": "Hermosas rosas rojas de alta calidad",
+                "precio": 25.99,
+                "categoria_id": 1,
+                "proveedor_id": 1,
+                "imagen": "rosa-roja.jpg"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Producto creado",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Producto" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/productos/{id}": {
+      "get": {
+        "tags": ["Productos"],
+        "summary": "Obtener producto por ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "Producto encontrado",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Producto" }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["Productos"],
+        "summary": "Actualizar producto",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nombre": { "type": "string" },
+                  "descripcion": { "type": "string" },
+                  "precio": { "type": "number", "format": "float" },
+                  "categoria_id": { "type": "integer" },
+                  "proveedor_id": { "type": "integer" },
+                  "imagen": { "type": "string" }
+                }
+              },
+              "example": {
+                "nombre": "Rosa Roja Premium Actualizada",
+                "descripcion": "Hermosas rosas rojas de alta calidad - Edición especial",
+                "precio": 29.99,
+                "categoria_id": 1,
+                "proveedor_id": 1
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Producto actualizado",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Producto" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/inventarios": {
+      "get": {
+        "tags": ["Inventario"],
+        "summary": "Obtener inventario",
+        "description": "Lista todo el inventario (ADMINISTRADOR y FLORISTA)",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "Lista de inventario",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean" },
+                    "data": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/Inventario" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Inventario"],
+        "summary": "Crear registro de inventario",
+        "description": "Crea un nuevo registro de inventario (ADMINISTRADOR y FLORISTA)",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["producto_id", "ubicacion_id", "cantidad_actual", "cantidad_minima"],
+                "properties": {
+                  "producto_id": { "type": "integer" },
+                  "ubicacion_id": { "type": "integer" },
+                  "cantidad_actual": { "type": "integer", "minimum": 0 },
+                  "cantidad_minima": { "type": "integer", "minimum": 0 }
+                }
+              },
+              "example": {
+                "producto_id": 1,
+                "ubicacion_id": 1,
+                "cantidad_actual": 50,
+                "cantidad_minima": 10
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Inventario creado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean" },
+                    "data": { "$ref": "#/components/schemas/Inventario" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/inventarios/{id}": {
+      "put": {
+        "tags": ["Inventario"],
+        "summary": "Actualizar inventario",
+        "description": "Actualiza un registro de inventario (ADMINISTRADOR y FLORISTA)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "cantidad_actual": { "type": "integer", "minimum": 0 },
+                  "cantidad_minima": { "type": "integer", "minimum": 0 }
+                }
+              },
+              "example": {
+                "cantidad_actual": 75,
+                "cantidad_minima": 15
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Inventario actualizado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean" },
+                    "data": { "$ref": "#/components/schemas/Inventario" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ajustes_inventario": {
+      "get": {
+        "tags": ["Ajustes de Inventario"],
+        "summary": "Obtener ajustes de inventario",
+        "description": "Lista todos los ajustes de inventario (solo lectura)",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "Lista de ajustes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean" },
+                    "data": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/AjusteInventario" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Ajustes de Inventario"],
+        "summary": "Crear ajuste de inventario",
+        "description": "Crea un ajuste de inventario (ADMINISTRADOR y FLORISTA)",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["producto_id", "cantidad_ajustada", "motivo"],
+                "properties": {
+                  "producto_id": { "type": "integer" },
+                  "cantidad_ajustada": { "type": "integer" },
+                  "motivo": { "type": "string" },
+                  "fecha": { "type": "string", "format": "date-time" }
+                }
+              },
+              "example": {
+                "producto_id": 1,
+                "cantidad_ajustada": 10,
+                "motivo": "Ajuste por pérdida de flores",
+                "fecha": "2024-01-15T10:30:00Z"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Ajuste creado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean" },
+                    "data": { "$ref": "#/components/schemas/AjusteInventario" },
+                    "auditoria": { "type": "object" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/movimientos": {
+      "get": {
+        "tags": ["Movimientos"],
+        "summary": "Obtener movimientos",
+        "description": "Lista todos los movimientos de inventario (solo lectura)",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "Lista de movimientos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean" },
+                    "data": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/Movimiento" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pedidos": {
+      "get": {
+        "tags": ["Pedidos"],
+        "summary": "Obtener pedidos",
+        "description": "Lista todos los pedidos de clientes",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "Lista de pedidos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Pedido" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Pedidos"],
+        "summary": "Crear nuevo pedido",
+        "description": "Crea un nuevo pedido de cliente",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["cliente_nombre", "cliente_telefono", "cliente_direccion", "items"],
+                "properties": {
+                  "cliente_nombre": { "type": "string" },
+                  "cliente_telefono": { "type": "string" },
+                  "cliente_direccion": { "type": "string" },
+                  "cliente_email": { "type": "string", "format": "email" },
+                  "fecha_entrega": { "type": "string", "format": "date-time" },
+                  "metodo_pago": { 
+                    "type": "string", 
+                    "enum": ["efectivo", "tarjeta", "transferencia"],
+                    "default": "efectivo"
+                  },
+                  "notas": { "type": "string" },
+                  "items": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "producto_id": { "type": "integer" },
+                        "cantidad": { "type": "integer", "minimum": 1 }
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "cliente_nombre": "María González",
+                "cliente_telefono": "555-1234",
+                "cliente_direccion": "Calle Principal 123, Ciudad",
+                "cliente_email": "maria@email.com",
+                "fecha_entrega": "2024-01-20T14:00:00Z",
+                "metodo_pago": "efectivo",
+                "notas": "Entregar en la puerta principal",
+                "items": [
+                  {
+                    "producto_id": 1,
+                    "cantidad": 2
+                  },
+                  {
+                    "producto_id": 3,
+                    "cantidad": 1
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Pedido creado",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Pedido" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pedidos/{id}": {
+      "get": {
+        "tags": ["Pedidos"],
+        "summary": "Obtener pedido por ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "Pedido encontrado",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Pedido" }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["Pedidos"],
+        "summary": "Actualizar estado del pedido",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "estado": { 
+                    "type": "string", 
+                    "enum": ["pendiente", "en_preparacion", "listo", "en_camino", "entregado", "cancelado"] 
+                  }
+                }
+              },
+              "example": {
+                "estado": "en_preparacion"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Estado actualizado",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Pedido" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/categorias": {
+      "get": {
+        "tags": ["Categorías"],
+        "summary": "Obtener categorías",
+        "description": "Lista todas las categorías de productos",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "Lista de categorías",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Categoria" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Categorías"],
+        "summary": "Crear categoría",
+        "description": "Crea una nueva categoría (solo ADMINISTRADOR)",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["nombre"],
+                "properties": {
+                  "nombre": { "type": "string" },
+                  "descripcion": { "type": "string" }
+                }
+              },
+              "example": {
+                "nombre": "Orquídeas",
+                "descripcion": "Hermosas orquídeas de diferentes variedades"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Categoría creada",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Categoria" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/proveedores": {
+      "get": {
+        "tags": ["Proveedores"],
+        "summary": "Obtener proveedores",
+        "description": "Lista todos los proveedores",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "Lista de proveedores",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Proveedor" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Proveedores"],
+        "summary": "Crear proveedor",
+        "description": "Crea un nuevo proveedor (solo ADMINISTRADOR)",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["nombre"],
+                "properties": {
+                  "nombre": { "type": "string" },
+                  "contacto": { "type": "string" },
+                  "direccion": { "type": "string" },
+                  "telefono": { "type": "string" }
+                }
+              },
+              "example": {
+                "nombre": "Vivero El Jardín",
+                "contacto": "Juan Pérez",
+                "direccion": "Carretera 123, Zona Rural",
+                "telefono": "555-9876"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Proveedor creado",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Proveedor" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ubicaciones": {
+      "get": {
+        "tags": ["Ubicaciones"],
+        "summary": "Obtener ubicaciones",
+        "description": "Lista todas las ubicaciones de almacén",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "Lista de ubicaciones",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Ubicacion" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Ubicaciones"],
+        "summary": "Crear ubicación",
+        "description": "Crea una nueva ubicación (solo ADMINISTRADOR)",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["nombre"],
+                "properties": {
+                  "nombre": { "type": "string" },
+                  "descripcion": { "type": "string" }
+                }
+              },
+              "example": {
+                "nombre": "Refrigerador Principal",
+                "descripcion": "Refrigerador principal para flores frescas"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Ubicación creada",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Ubicacion" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ordenes_compra": {
+      "get": {
+        "tags": ["Órdenes de Compra"],
+        "summary": "Obtener órdenes de compra",
+        "description": "Lista todas las órdenes de compra (solo ADMINISTRADOR)",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "Lista de órdenes de compra",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/OrdenCompra" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Órdenes de Compra"],
+        "summary": "Crear orden de compra",
+        "description": "Crea una nueva orden de compra (solo ADMINISTRADOR)",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "numero": { "type": "string" },
+                  "proveedor_id": { "type": "integer" },
+                  "fecha": { "type": "string", "format": "date-time" },
+                  "estado": { "type": "string" },
+                  "observaciones": { "type": "string" }
+                }
+              },
+              "example": {
+                "numero": "OC-2024-001",
+                "proveedor_id": 1,
+                "fecha": "2024-01-15T08:00:00Z",
+                "estado": "Pendiente",
+                "observaciones": "Pedido urgente para fin de semana"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Orden de compra creada",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OrdenCompra" }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+} 
