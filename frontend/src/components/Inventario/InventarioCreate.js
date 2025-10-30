@@ -78,7 +78,7 @@ const InventarioCreate = () => {
       const res = await inventarioService.create(formData);
       if (res.success) {
         alert('Registro de inventario creado exitosamente');
-        navigate('/sistemafloreria/inventario');
+        navigate('/sistema/inventario');
       } else {
         setError(res.error || 'Error al crear el registro de inventario');
       }
@@ -121,7 +121,7 @@ const InventarioCreate = () => {
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold text-gray-800">Crear Registro de Inventario</h1>
         <button
-          onClick={() => navigate('/sistemafloreria/inventario')}
+          onClick={() => navigate('/sistema/inventario')}
           className="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-lg transition duration-200"
         >
           Volver
@@ -273,7 +273,7 @@ const InventarioCreate = () => {
           <div className="flex justify-end space-x-4 mt-6">
             <button
               type="button"
-              onClick={() => navigate('/sistemafloreria/inventario')}
+              onClick={() => navigate('/sistema/inventario')}
               className="px-4 py-2 text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-md transition duration-200"
             >
               Cancelar

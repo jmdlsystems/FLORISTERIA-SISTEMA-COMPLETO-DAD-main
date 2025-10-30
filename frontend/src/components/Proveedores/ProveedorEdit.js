@@ -57,7 +57,7 @@ const ProveedorEdit = () => {
     try {
       await proveedoresService.update(id, formData);
       alert('Proveedor actualizado exitosamente');
-      navigate('/sistemafloreria/proveedores');
+      navigate('/sistema/proveedores');
     } catch (err) {
       setError('Error al actualizar el proveedor: ' + err.message);
     } finally {
@@ -66,7 +66,7 @@ const ProveedorEdit = () => {
   };
 
   const handleCancel = () => {
-    navigate('/sistemafloreria/proveedores');
+    navigate('/sistema/proveedores');
   };
 
   if (initialLoading) {

@@ -63,7 +63,7 @@ const OrdenCompraCreate = () => {
       delete dataToSend.proveedorId;
       await ordenCompraService.create(dataToSend);
       alert('Orden de compra creada exitosamente');
-      navigate('/sistemafloreria/ordenes-compra');
+      navigate('/sistema/ordenes-compra');
     } catch (err) {
       setError('Error al crear la orden: ' + err.message);
     } finally {
@@ -72,7 +72,7 @@ const OrdenCompraCreate = () => {
   };
 
   const handleCancel = () => {
-    navigate('/sistemafloreria/ordenes-compra');
+    navigate('/sistema/ordenes-compra');
   };
 
   return (
@@ -117,7 +117,7 @@ const OrdenCompraCreate = () => {
 
               <div>
                 <label htmlFor="total" className="block text-sm font-medium text-gray-700 mb-2">
-                  Total *
+                  Total (S/.) *
                 </label>
                 <input
                   type="number"

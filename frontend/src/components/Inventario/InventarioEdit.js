@@ -89,7 +89,7 @@ const InventarioEdit = () => {
       const res = await inventarioService.update(id, formData);
       if (res.success) {
         alert('Registro de inventario actualizado exitosamente');
-        navigate('/sistemafloreria/inventario');
+        navigate('/sistema/inventario');
       } else {
         setError(res.error || 'Error al actualizar el registro de inventario');
       }
@@ -132,7 +132,7 @@ const InventarioEdit = () => {
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold text-gray-800">Actualizar Registro de Inventario</h1>
         <button
-          onClick={() => navigate('/sistemafloreria/inventario')}
+          onClick={() => navigate('/sistema/inventario')}
           className="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-lg transition duration-200"
         >
           Volver
@@ -289,7 +289,7 @@ const InventarioEdit = () => {
           <div className="flex justify-end space-x-4 mt-6">
             <button
               type="button"
-              onClick={() => navigate('/sistemafloreria/inventario')}
+              onClick={() => navigate('/sistema/inventario')}
               className="px-4 py-2 text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-md transition duration-200"
             >
               Cancelar

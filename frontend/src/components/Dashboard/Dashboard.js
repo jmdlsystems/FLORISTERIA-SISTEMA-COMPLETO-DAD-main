@@ -212,7 +212,7 @@ const Dashboard = () => {
           <h3 className="text-lg font-semibold text-gray-900 mb-4">Acciones Rápidas</h3>
           <div className="space-y-3">
             <Link 
-              to="/sistemafloreria/pedidos"
+              to="/sistema/pedidos"
               className="flex items-center p-3 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors duration-200"
             >
               <svg className="h-5 w-5 text-orange-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -221,7 +221,7 @@ const Dashboard = () => {
               <span className="text-gray-700">📋 Gestión de Pedidos</span>
             </Link>
             <Link 
-              to="/sistemafloreria/inventario"
+              to="/sistema/inventario"
               className="flex items-center p-3 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors duration-200"
             >
               <svg className="h-5 w-5 text-blue-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -308,7 +308,7 @@ const Dashboard = () => {
                      pedido.estado === 'en_camino' ? 'En Ruta' : pedido.estado}
                   </span>
                   <p className="text-sm font-semibold text-gray-800 mt-1">
-                    ${parseFloat(pedido.total || 0).toFixed(2)}
+                    S/.{parseFloat(pedido.total || 0).toFixed(2)}
                   </p>
                 </div>
               </div>
@@ -321,7 +321,7 @@ const Dashboard = () => {
         <h2 className="text-xl font-semibold text-blue-900 mb-4">Acciones Rápidas</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Link 
-            to="/sistemafloreria/pedidos" 
+            to="/sistema/pedidos" 
             className="bg-blue-600 hover:bg-blue-700 text-white p-4 rounded-lg text-center transition-colors"
           >
             <h3 className="font-semibold">📋 Ver Todos los Pedidos</h3>
@@ -398,14 +398,14 @@ const Dashboard = () => {
         <h2 className="text-xl font-semibold text-pink-900 mb-4">Acciones Rápidas</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Link 
-            to="/sistemafloreria/pedidos" 
+            to="/sistema/pedidos" 
             className="bg-pink-600 hover:bg-pink-700 text-white p-4 rounded-lg text-center transition-colors"
           >
             <h3 className="font-semibold">🌸 Gestionar Pedidos</h3>
             <p className="text-sm opacity-90">Preparar arreglos florales</p>
           </Link>
           <Link 
-            to="/sistemafloreria/inventario" 
+            to="/sistema/inventario" 
             className="bg-green-600 hover:bg-green-700 text-white p-4 rounded-lg text-center transition-colors"
           >
             <h3 className="font-semibold">📊 Ver Inventario</h3>
@@ -444,11 +444,11 @@ const Dashboard = () => {
       <div className="mt-8">
         <h2 className="text-xl font-semibold text-purple-900 mb-4">Acciones Rápidas</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <Link to="/sistemafloreria/compras" className="bg-purple-600 hover:bg-purple-700 text-white p-4 rounded-lg text-center transition-colors">
+          <Link to="/sistema/compras" className="bg-purple-600 hover:bg-purple-700 text-white p-4 rounded-lg text-center transition-colors">
             <h3 className="font-semibold">Ver Catálogo</h3>
-            <p className="text-sm opacity-90">Explorar flores y arreglos</p>
+            <p className="text-sm opacity-90">Explorar productos</p>
           </Link>
-          <Link to="/sistemafloreria/carrito" className="bg-blue-600 hover:bg-blue-700 text-white p-4 rounded-lg text-center transition-colors">
+          <Link to="/sistema/carrito" className="bg-blue-600 hover:bg-blue-700 text-white p-4 rounded-lg text-center transition-colors">
             <h3 className="font-semibold">Mi Carrito</h3>
             <p className="text-sm opacity-90">Ver productos seleccionados</p>
           </Link>
@@ -477,4 +477,5 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard; 
+export default Dashboard;
+ 

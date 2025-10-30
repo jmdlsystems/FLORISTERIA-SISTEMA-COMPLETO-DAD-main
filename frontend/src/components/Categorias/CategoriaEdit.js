@@ -80,14 +80,14 @@ const CategoriaEdit = () => {
     const res = await categoriasService.update(id, { nombre, descripcion, imagen: nombreImagen });
     setLoading(false);
     if (res.success) {
-      navigate('/sistemafloreria/categorias');
+      navigate('/sistema/categorias');
     } else {
       setError(res.error);
     }
   };
 
   const handleCancel = () => {
-    navigate('/sistemafloreria/categorias');
+    navigate('/sistema/categorias');
   };
 
   return (

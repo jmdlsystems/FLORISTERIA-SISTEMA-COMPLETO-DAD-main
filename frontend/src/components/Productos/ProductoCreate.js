@@ -87,7 +87,7 @@ const ProductoCreate = () => {
     const res = await productosService.create({ ...form, imagen: nombreImagen });
     setLoading(false);
     if (res.success) {
-      navigate('/sistemafloreria/productos');
+      navigate('/sistema/productos');
     } else {
       setError(res.error);
     }
@@ -168,7 +168,7 @@ const ProductoCreate = () => {
         </div>
         {error && <div className="text-red-500">{error}</div>}
         <div className="flex justify-end space-x-2">
-          <button type="button" onClick={() => navigate('/sistemafloreria/productos')} className="px-4 py-2 bg-gray-300 rounded">Cancelar</button>
+          <button type="button" onClick={() => navigate('/sistema/productos')} className="px-4 py-2 bg-gray-300 rounded">Cancelar</button>
           <button type="submit" disabled={loading || uploading} className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">{loading ? 'Guardando...' : 'Guardar'}</button>
         </div>
       </form>

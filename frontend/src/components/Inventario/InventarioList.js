@@ -17,7 +17,7 @@ const InventarioList = () => {
 
   // Recargar inventario cuando se regrese de editar
   useEffect(() => {
-    if (location.pathname === '/sistemafloreria/inventario') {
+    if (location.pathname === '/sistema/inventario') {
       loadInventario();
     }
   }, [location.pathname]);
@@ -112,7 +112,7 @@ const InventarioList = () => {
             </div>
             <div className="mt-3">
               <Link
-                to="/sistemafloreria/inventario/crear"
+                to="/sistema/inventario/crear"
                 className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-blue-700 bg-blue-100 hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-200"
               >
                 <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -129,7 +129,7 @@ const InventarioList = () => {
         <h1 className="text-3xl font-bold text-gray-800">Gestión del Inventario</h1>
         <div className="flex space-x-2">
           <Link
-            to="/sistemafloreria/inventario/crear"
+            to="/sistema/inventario/crear"
             className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg transition duration-200 flex items-center"
           >
             <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -138,7 +138,7 @@ const InventarioList = () => {
             Nuevo Registro
           </Link>
           <Link
-            to="/sistemafloreria/ajustes-inventario"
+            to="/sistema/ajustes-inventario"
             className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition duration-200 flex items-center"
           >
             <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -147,7 +147,7 @@ const InventarioList = () => {
             Ver Ajustes
           </Link>
           <Link
-            to="/sistemafloreria/movimientos"
+            to="/sistema/movimientos"
             className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg transition duration-200 flex items-center"
           >
             <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -254,7 +254,7 @@ const InventarioList = () => {
                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                   <div className="flex space-x-2">
                     <Link
-                      to={`/sistemafloreria/inventario/${item.id}/actualizar`}
+                      to={`/sistema/inventario/${item.id}/actualizar`}
                       className="text-indigo-600 hover:text-indigo-900 transition duration-200"
                       title="Editar registro de inventario"
                     >
@@ -263,7 +263,7 @@ const InventarioList = () => {
                       </svg>
                     </Link>
                     <Link
-                      to={`/sistemafloreria/ajustes-inventario?producto_id=${item.producto_id}`}
+                      to={`/sistema/ajustes-inventario?producto_id=${item.producto_id}`}
                       className="text-blue-600 hover:text-blue-900 transition duration-200"
                       title="Ver ajustes de este producto"
                     >
@@ -272,7 +272,7 @@ const InventarioList = () => {
                       </svg>
                     </Link>
                     <Link
-                      to={`/sistemafloreria/movimientos?producto_id=${item.producto_id}`}
+                      to={`/sistema/movimientos?producto_id=${item.producto_id}`}
                       className="text-purple-600 hover:text-purple-900 transition duration-200"
                       title="Ver historial de movimientos"
                     >

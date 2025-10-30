@@ -81,7 +81,7 @@ const App = () => {
 
             {/* Ruta de redirección basada en roles */}
             <Route
-              path="/sistemafloreria"
+              path="/sistema"
               element={
                 <AuthGuard>
                   <RoleBasedRedirect />
@@ -91,7 +91,7 @@ const App = () => {
 
             {/* Rutas principales del sistema */}
             <Route
-              path="/sistemafloreria/*"
+              path="/sistema/*"
               element={
                 <AuthGuard>
                   <Layout>

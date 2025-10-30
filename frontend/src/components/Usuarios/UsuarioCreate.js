@@ -62,7 +62,7 @@ const UsuarioCreate = () => {
     const res = await usuariosService.create(payload);
     if (res.success) {
         alert('Usuario creado exitosamente');
-      navigate('/sistemafloreria/usuarios');
+      navigate('/sistema/usuarios');
     } else {
         setError(res.error || 'Error al crear el usuario');
       }
@@ -74,7 +74,7 @@ const UsuarioCreate = () => {
   };
 
   const handleCancel = () => {
-    navigate('/sistemafloreria/usuarios');
+    navigate('/sistema/usuarios');
   };
 
   if (initialLoading) {

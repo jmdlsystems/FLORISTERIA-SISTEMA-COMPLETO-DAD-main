@@ -265,7 +265,7 @@ const PedidosList = () => {
                 )}
               </div>
               <Link
-                to={`/sistemafloreria/pedidos/${pedido.id}`}
+                to={`/sistema/pedidos/${pedido.id}`}
                 className="text-pink-600 hover:text-pink-800 font-medium text-sm"
               >
                 Ver Detalles →

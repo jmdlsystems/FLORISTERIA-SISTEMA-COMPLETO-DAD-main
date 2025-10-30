@@ -62,7 +62,7 @@ const RolEdit = () => {
       }
       
       alert('Rol actualizado exitosamente');
-      navigate('/sistemafloreria/roles');
+      navigate('/sistema/roles');
     } catch (err) {
       setError('Error al actualizar el rol: ' + err.message);
     } finally {
@@ -71,7 +71,7 @@ const RolEdit = () => {
   };
 
   const handleCancel = () => {
-    navigate('/sistemafloreria/roles');
+    navigate('/sistema/roles');
   };
 
   if (initialLoading) {

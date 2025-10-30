@@ -42,7 +42,7 @@ const Login = () => {
       const result = await login(formData);
       
       if (result.success) {
-        navigate('/sistemafloreria/dashboard');
+        navigate('/sistema/dashboard');
       } else {
         // Manejar errores específicos
         if (result.code === 'USER_INACTIVE') {

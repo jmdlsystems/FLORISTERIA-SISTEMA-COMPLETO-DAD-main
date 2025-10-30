@@ -9,7 +9,7 @@ const RoleBasedRedirect = () => {
   useEffect(() => {
     if (!loading && user) {
       // Todos los roles van al mismo dashboard, pero con diferentes opciones en el sidebar
-      navigate('/sistemafloreria/dashboard');
+      navigate('/sistema/dashboard');
     }
   }, [user, loading, navigate]);
 

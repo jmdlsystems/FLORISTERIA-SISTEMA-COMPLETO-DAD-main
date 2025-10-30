@@ -20,7 +20,7 @@ const UbicacionCreate = () => {
     try {
       await ubicacionesService.create(formData);
       alert('Ubicación creada exitosamente');
-      navigate('/sistemafloreria/ubicaciones');
+      navigate('/sistema/ubicaciones');
     } catch (err) {
       setError('Error al crear la ubicación: ' + err.message);
     } finally {
@@ -28,7 +28,7 @@ const UbicacionCreate = () => {
     }
   };
 
-  const handleCancel = () => navigate('/sistemafloreria/ubicaciones');
+  const handleCancel = () => navigate('/sistema/ubicaciones');
 
   return (
     <div className="container mx-auto px-4 py-8">

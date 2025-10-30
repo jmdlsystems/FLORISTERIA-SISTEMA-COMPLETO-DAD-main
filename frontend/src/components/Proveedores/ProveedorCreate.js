@@ -29,7 +29,7 @@ const ProveedorCreate = () => {
     try {
       await proveedoresService.create(formData);
       alert('Proveedor creado exitosamente');
-      navigate('/sistemafloreria/proveedores');
+      navigate('/sistema/proveedores');
     } catch (err) {
       setError('Error al crear el proveedor: ' + err.message);
     } finally {
@@ -38,7 +38,7 @@ const ProveedorCreate = () => {
   };
 
   const handleCancel = () => {
-    navigate('/sistemafloreria/proveedores');
+    navigate('/sistema/proveedores');
   };
 
   return (

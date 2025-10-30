@@ -118,7 +118,7 @@ const ProductosList = () => {
     <div className="container mx-auto px-2 py-6 sm:px-4">
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-4 gap-2">
         <h2 className="text-xl sm:text-2xl font-bold">Productos</h2>
-        <Link to="/sistemafloreria/productos/crear" className="bg-green-600 text-white px-3 py-2 rounded hover:bg-green-700 text-sm sm:text-base">Crear Producto</Link>
+        <Link to="/sistema/productos/crear" className="bg-green-600 text-white px-3 py-2 rounded hover:bg-green-700 text-sm sm:text-base">Crear Producto</Link>
       </div>
 
       {/* Buscador */}
@@ -165,7 +165,7 @@ const ProductosList = () => {
                 <tr key={producto.id} className="hover:bg-gray-50">
                   <td className="px-2 py-2 whitespace-nowrap">{producto.id}</td>
                   <td className="px-2 py-2 whitespace-nowrap">{producto.nombre}</td>
-                  <td className="px-2 py-2 whitespace-nowrap">${producto.precio || '0.00'}</td>
+                  <td className="px-2 py-2 whitespace-nowrap">S/.{producto.precio || '0.00'}</td>
                   <td className="px-2 py-2">
                     {producto.imagen ? (
                       <img
@@ -187,7 +187,7 @@ const ProductosList = () => {
                   <td className="px-2 py-2 whitespace-nowrap">{producto.proveedor?.nombre || '-'}</td>
                   <td className="px-2 py-2 space-x-1">
                     <button
-                      onClick={() => navigate(`/sistemafloreria/productos/${producto.id}/actualizar`)}
+                      onClick={() => navigate(`/sistema/productos/${producto.id}/actualizar`)}
                       className="text-indigo-600 hover:text-indigo-900 transition duration-200"
                       title="Editar"
                     >

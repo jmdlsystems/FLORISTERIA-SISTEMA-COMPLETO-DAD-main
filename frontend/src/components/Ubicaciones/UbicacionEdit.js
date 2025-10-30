@@ -42,14 +42,14 @@ const UbicacionEdit = () => {
     try {
       await ubicacionesService.update(id, formData);
       alert('Ubicación actualizada exitosamente');
-      navigate('/sistemafloreria/ubicaciones');
+      navigate('/sistema/ubicaciones');
     } catch (err) {
       setError('Error al actualizar la ubicación: ' + err.message);
     } finally {
       setLoading(false);
     }
   };
-  const handleCancel = () => navigate('/sistemafloreria/ubicaciones');
+  const handleCancel = () => navigate('/sistema/ubicaciones');
   if (initialLoading) return (<div className="flex justify-center items-center h-64"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600"></div></div>);
   if (error && !formData.nombre) return (<div className="container mx-auto px-4 py-8"><div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">{error}</div><button onClick={handleCancel} className="mt-4 px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700">Volver</button></div>);
   return (

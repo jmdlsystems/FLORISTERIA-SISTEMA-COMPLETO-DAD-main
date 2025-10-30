@@ -82,7 +82,7 @@ const AjusteInventarioCreate = () => {
       const res = await ajusteInventarioService.create(payload);
       if (res.success) {
         alert('✅ Ajuste de inventario creado exitosamente\n\n📊 El inventario se ha actualizado automáticamente\n📝 Se ha registrado el movimiento para auditoría');
-        navigate('/sistemafloreria/ajustes-inventario');
+        navigate('/sistema/ajustes-inventario');
       } else {
         setError(res.error);
       }
@@ -94,7 +94,7 @@ const AjusteInventarioCreate = () => {
   };
 
   const handleCancel = () => {
-    navigate('/sistemafloreria/ajustes-inventario');
+    navigate('/sistema/ajustes-inventario');
   };
 
   return (

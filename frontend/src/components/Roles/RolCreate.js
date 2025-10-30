@@ -33,7 +33,7 @@ const RolCreate = () => {
       }
       
       alert('Rol creado exitosamente');
-      navigate('/sistemafloreria/roles');
+      navigate('/sistema/roles');
     } catch (err) {
       setError('Error al crear el rol: ' + err.message);
     } finally {
@@ -42,7 +42,7 @@ const RolCreate = () => {
   };
 
   const handleCancel = () => {
-    navigate('/sistemafloreria/roles');
+    navigate('/sistema/roles');
   };
 
   return (

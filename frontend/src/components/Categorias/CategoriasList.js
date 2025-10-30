@@ -118,7 +118,7 @@ const CategoriasList = () => {
     <div className="container mx-auto px-2 py-6 sm:px-4">
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-4 gap-2">
         <h2 className="text-xl sm:text-2xl font-bold">Categorías</h2>
-        <Link to="/sistemafloreria/categorias/crear" className="bg-green-600 text-white px-3 py-2 rounded hover:bg-green-700 text-sm sm:text-base">Nueva Categoría</Link>
+        <Link to="/sistema/categorias/crear" className="bg-green-600 text-white px-3 py-2 rounded hover:bg-green-700 text-sm sm:text-base">Nueva Categoría</Link>
       </div>
 
       {/* Buscador */}
@@ -179,7 +179,7 @@ const CategoriasList = () => {
                   </td>
                   <td className="px-2 py-2 space-x-1">
                     <button
-                      onClick={() => navigate(`/sistemafloreria/categorias/${cat.id}/actualizar`)}
+                      onClick={() => navigate(`/sistema/categorias/${cat.id}/actualizar`)}
                       className="text-indigo-600 hover:text-indigo-900 transition duration-200"
                       title="Editar"
                     >

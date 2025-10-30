@@ -8,7 +8,7 @@ const AjusteInventarioEdit = () => {
   useEffect(() => {
     // Mostrar mensaje y redirigir
     alert('❌ No se pueden editar ajustes de inventario\n\n🔒 Los ajustes son registros de auditoría que no pueden modificarse para mantener la integridad de los datos.\n\n💡 Para corregir un error, cree un nuevo ajuste que compense la diferencia.');
-    navigate('/sistemafloreria/ajustes-inventario');
+    navigate('/sistema/ajustes-inventario');
   }, [id, navigate]);
 
   return (
@@ -44,7 +44,7 @@ const AjusteInventarioEdit = () => {
               </div>
               <div className="mt-4">
                 <button
-                  onClick={() => navigate('/sistemafloreria/ajustes-inventario')}
+                  onClick={() => navigate('/sistema/ajustes-inventario')}
                   className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg transition duration-200"
                 >
                   Volver a Ajustes

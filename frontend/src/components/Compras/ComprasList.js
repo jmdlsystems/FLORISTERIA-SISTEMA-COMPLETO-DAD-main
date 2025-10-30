@@ -81,7 +81,7 @@ const ComprasList = () => {
             </h3>
             <div className="mt-2 text-sm text-pink-700">
               <p className="mb-2">
-                <strong>🌸 Selecciona:</strong> Las flores que deseas comprar
+                <strong>🌸 Selecciona:</strong> Los productos que deseas ordenar
               </p>
               <p className="mb-2">
                 <strong>📝 Completa:</strong> Tus datos de entrega
@@ -95,20 +95,20 @@ const ComprasList = () => {
       </div>
 
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold text-gray-800">🌸 Catálogo de Flores</h1>
+        <h1 className="text-3xl font-bold text-gray-800">🍀 Catálogo de Productos</h1>
                   <div className="flex items-center space-x-4">
             <span className="text-sm text-gray-600">
               Productos en carrito: <span className="font-bold text-pink-600">{obtenerCantidadTotal()}</span>
             </span>
             {carrito.length > 0 && (
               <Link
-                to="/sistemafloreria/carrito"
+                to="/sistema/carrito"
                 className="bg-pink-600 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded-lg transition duration-200 flex items-center"
               >
                 <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m6-5v6a2 2 0 01-2 2H9a2 2 0 01-2-2v-6m6 0V9a2 2 0 00-2-2H9a2 2 0 00-2 2v4.01"></path>
                 </svg>
-                Ver Carrito (${calcularTotal().toFixed(2)})
+                Ver Carrito (S/.{calcularTotal().toFixed(2)})
               </Link>
             )}
           </div>
@@ -169,7 +169,7 @@ const ComprasList = () => {
               
               <div className="flex items-center justify-between mb-3">
                 <span className="text-2xl font-bold text-pink-600">
-                  ${producto.precio || 0}
+                  S/.{producto.precio || 0}
                 </span>
                 <span className="text-sm text-gray-500">
                   Stock: {producto.inventario?.cantidad_actual ?? 0}

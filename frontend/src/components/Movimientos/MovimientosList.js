@@ -89,7 +89,7 @@ const MovimientosList = () => {
             </div>
             <div className="mt-3">
               <Link
-                to="/sistemafloreria/inventario"
+                to="/sistema/inventario"
                 className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-blue-700 bg-blue-100 hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-200"
               >
                 <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -106,7 +106,7 @@ const MovimientosList = () => {
           <h1 className="text-3xl font-bold text-gray-800">Registro de Movimientos</h1>
           <div className="flex space-x-2">
             <Link
-              to="/sistemafloreria/inventario"
+              to="/sistema/inventario"
               className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition duration-200 flex items-center"
             >
               <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -115,7 +115,7 @@ const MovimientosList = () => {
               Gestionar Inventario
             </Link>
             <Link
-              to="/sistemafloreria/ajustes-inventario"
+              to="/sistema/ajustes-inventario"
               className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg transition duration-200 flex items-center"
             >
               <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -201,7 +201,7 @@ const MovimientosList = () => {
                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                   <div className="flex space-x-2">
                     <Link
-                      to={`/sistemafloreria/inventario?producto_id=${mov.producto_id}`}
+                      to={`/sistema/inventario?producto_id=${mov.producto_id}`}
                       className="text-blue-600 hover:text-blue-900 transition duration-200"
                       title="Ver inventario del producto"
                     >
@@ -210,7 +210,7 @@ const MovimientosList = () => {
                       </svg>
                     </Link>
                     <Link
-                      to={`/sistemafloreria/ajustes-inventario?producto_id=${mov.producto_id}`}
+                      to={`/sistema/ajustes-inventario?producto_id=${mov.producto_id}`}
                       className="text-green-600 hover:text-green-900 transition duration-200"
                       title="Ver ajustes del producto"
                     >

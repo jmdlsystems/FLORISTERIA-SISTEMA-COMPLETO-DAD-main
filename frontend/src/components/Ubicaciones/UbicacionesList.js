@@ -78,7 +78,7 @@ const UbicacionesList = () => {
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold text-gray-800">Gestión de Ubicaciones</h1>
         <Link
-          to="/sistemafloreria/ubicaciones/crear"
+          to="/sistema/ubicaciones/crear"
           className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg transition duration-200 flex items-center"
         >
           <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -140,7 +140,7 @@ const UbicacionesList = () => {
                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                   <div className="flex space-x-2">
                     <Link
-                      to={`/sistemafloreria/ubicaciones/${ubicacion.id}/actualizar`}
+                      to={`/sistema/ubicaciones/${ubicacion.id}/actualizar`}
                       className="text-indigo-600 hover:text-indigo-900 transition duration-200"
                     >
                       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

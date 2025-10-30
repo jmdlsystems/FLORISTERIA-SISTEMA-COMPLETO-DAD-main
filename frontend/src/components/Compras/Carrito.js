@@ -69,7 +69,7 @@ const Carrito = () => {
         limpiarCarrito();
         
         alert('¡Pedido enviado exitosamente! El florista recibirá tu orden.');
-        navigate('/sistemafloreria/compras');
+        navigate('/sistema/compras');
       } else {
         setError('Error al enviar el pedido: ' + response.error);
       }
@@ -93,7 +93,7 @@ const Carrito = () => {
           </p>
           <div className="mt-6">
             <Link
-              to="/sistemafloreria/compras"
+              to="/sistema/compras"
               className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-pink-600 hover:bg-pink-700"
             >
               <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -112,7 +112,7 @@ const Carrito = () => {
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold text-gray-800">🛒 Tu Carrito</h1>
         <Link
-          to="/sistemafloreria/compras"
+          to="/sistema/compras"
           className="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-lg transition duration-200"
         >
           Continuar Comprando
@@ -147,7 +147,7 @@ const Carrito = () => {
                   {/* Información */}
                   <div className="flex-1">
                     <h3 className="font-semibold text-gray-800">{item.nombre}</h3>
-                    <p className="text-gray-600">${parseFloat(item.precio || 0).toFixed(2)} cada uno</p>
+                    <p className="text-gray-600">S/.{parseFloat(item.precio || 0).toFixed(2)} cada uno</p>
                   </div>
                   
                   {/* Cantidad */}
@@ -173,7 +173,7 @@ const Carrito = () => {
                   
                   {/* Precio total */}
                   <div className="text-right">
-                    <p className="font-semibold text-gray-800">${(parseFloat(item.precio || 0) * item.cantidad).toFixed(2)}</p>
+                    <p className="font-semibold text-gray-800">S/.{(parseFloat(item.precio || 0) * item.cantidad).toFixed(2)}</p>
                   </div>
                   
                   {/* Eliminar */}
@@ -308,7 +308,7 @@ const Carrito = () => {
                                  <div className="space-y-2 text-sm">
                    <div className="flex justify-between font-semibold text-lg">
                      <span>Total:</span>
-                     <span className="text-pink-600">${calcularTotal().toFixed(2)}</span>
+                     <span className="text-pink-600">S/.{calcularTotal().toFixed(2)}</span>
                    </div>
                  </div>
               </div>

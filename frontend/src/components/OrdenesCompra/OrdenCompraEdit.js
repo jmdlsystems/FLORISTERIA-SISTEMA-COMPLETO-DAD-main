@@ -69,7 +69,7 @@ const OrdenCompraEdit = () => {
     try {
       await ordenCompraService.update(id, formData);
       alert('Orden de compra actualizada exitosamente');
-      navigate('/sistemafloreria/ordenes-compra');
+      navigate('/sistema/ordenes-compra');
     } catch (err) {
       setError('Error al actualizar la orden: ' + err.message);
     } finally {
@@ -78,7 +78,7 @@ const OrdenCompraEdit = () => {
   };
 
   const handleCancel = () => {
-    navigate('/sistemafloreria/ordenes-compra');
+    navigate('/sistema/ordenes-compra');
   };
 
   if (initialLoading) {

@@ -101,7 +101,7 @@ const AjustesInventarioList = () => {
             </div>
             <div className="mt-3">
               <Link
-                to="/sistemafloreria/inventario"
+                to="/sistema/inventario"
                 className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-blue-700 bg-blue-100 hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-200 mr-2"
               >
                 <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -110,7 +110,7 @@ const AjustesInventarioList = () => {
                 Gestionar Inventario
               </Link>
               <Link
-                to="/sistemafloreria/movimientos"
+                to="/sistema/movimientos"
                 className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-purple-700 bg-purple-100 hover:bg-purple-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition duration-200"
               >
                 <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -127,7 +127,7 @@ const AjustesInventarioList = () => {
         <h1 className="text-3xl font-bold text-gray-800">Registro de Ajustes de Inventario</h1>
         <div className="flex space-x-2">
           <Link
-            to="/sistemafloreria/inventario"
+            to="/sistema/inventario"
             className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition duration-200 flex items-center"
           >
             <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -136,7 +136,7 @@ const AjustesInventarioList = () => {
             Gestionar Inventario
           </Link>
           <Link
-            to="/sistemafloreria/movimientos"
+            to="/sistema/movimientos"
             className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg transition duration-200 flex items-center"
           >
             <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -217,7 +217,7 @@ const AjustesInventarioList = () => {
                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                   <div className="flex space-x-2">
                     <Link
-                      to={`/sistemafloreria/inventario?producto_id=${ajuste.producto_id}`}
+                      to={`/sistema/inventario?producto_id=${ajuste.producto_id}`}
                       className="text-blue-600 hover:text-blue-900 transition duration-200"
                       title="Ver inventario del producto"
                     >
@@ -226,7 +226,7 @@ const AjustesInventarioList = () => {
                       </svg>
                     </Link>
                     <Link
-                      to={`/sistemafloreria/movimientos?producto_id=${ajuste.producto_id}`}
+                      to={`/sistema/movimientos?producto_id=${ajuste.producto_id}`}
                       className="text-purple-600 hover:text-purple-900 transition duration-200"
                       title="Ver movimientos del producto"
                     >

@@ -67,14 +67,14 @@ const CategoriaCreate = () => {
     const res = await categoriasService.create({ nombre, descripcion, imagen: nombreImagen });
     setLoading(false);
     if (res.success) {
-      navigate('/sistemafloreria/categorias');
+      navigate('/sistema/categorias');
     } else {
       setError(res.error);
     }
   };
 
   const handleCancel = () => {
-    navigate('/sistemafloreria/categorias');
+    navigate('/sistema/categorias');
   };
 
   return (

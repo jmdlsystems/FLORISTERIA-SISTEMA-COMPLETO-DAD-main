@@ -87,7 +87,7 @@ const UsuarioEdit = () => {
       
     if (res.success) {
         alert('Usuario actualizado exitosamente');
-      navigate('/sistemafloreria/usuarios');
+      navigate('/sistema/usuarios');
     } else {
         setError(res.error || 'Error al actualizar el usuario');
       }
@@ -99,7 +99,7 @@ const UsuarioEdit = () => {
   };
 
   const handleCancel = () => {
-    navigate('/sistemafloreria/usuarios');
+    navigate('/sistema/usuarios');
   };
 
   if (initialLoading) {
